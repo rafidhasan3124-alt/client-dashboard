@@ -6,7 +6,7 @@ An advanced, production-grade **Client Management Dashboard / Admin Prototype** 
 
 ## Live Demo
 
-- **Netlify Deployment:** `https://your-app-name.netlify.app` *(Replace with your live Netlify deployment URL)*
+- **Netlify Deployment:** `https://client-management-dashboard.netlify.app/` *(Replace with your live Netlify deployment URL)*
 - **Demo Credentials:**
   - **Email:** `admin@demo.com`
   - **Password:** `admin123`
@@ -14,15 +14,6 @@ An advanced, production-grade **Client Management Dashboard / Admin Prototype** 
 
 ---
 
-## Screenshot
-
-*(Add your dashboard screenshot here)*
-
-```markdown
-![ClientHub Dashboard Screenshot](./screenshot.png)
-```
-
----
 
 ## Project Objective
 

@@ -1,15 +1,15 @@
 const styles = {
   Active: {
-    container: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
-    dot: "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]",
+    container: "bg-success-950/30 text-success-400 border-success-500/30",
+    dot: "bg-success-400",
   },
   Pending: {
-    container: "bg-amber-500/10 text-amber-400 border-amber-500/25",
-    dot: "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]",
+    container: "bg-warning-950/30 text-warning-400 border-warning-500/30",
+    dot: "bg-warning-400",
   },
   Inactive: {
-    container: "bg-rose-500/10 text-rose-400 border-rose-500/25",
-    dot: "bg-rose-400",
+    container: "bg-danger-950/30 text-danger-400 border-danger-500/30",
+    dot: "bg-danger-400",
   },
 };
 
@@ -18,7 +18,7 @@ export default function StatusBadge({ status = "Active" }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${currentStyle.container}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${currentStyle.container}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${currentStyle.dot}`} />
       <span>{status}</span>

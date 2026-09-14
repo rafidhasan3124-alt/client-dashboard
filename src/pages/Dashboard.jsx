@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   Search,
   Plus,
@@ -11,6 +11,11 @@ import {
   RefreshCw,
   TrendingUp,
   Shield,
+  HelpCircle,
+  ExternalLink,
+  BookOpen,
+  Keyboard,
+  UploadCloud,
 } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -51,6 +56,18 @@ export default function Dashboard() {
   const [clientToDelete, setClientToDelete] = useState(null);
 
   const [resetModalOpen, setResetModalOpen] = useState(false);
+  const searchInputRef = useRef(null);
+
+  const handleHeaderSearchClick = () => {
+    if (activeTab !== "dashboard" && activeTab !== "clients") {
+      setActiveTab("clients");
+    }
+    setTimeout(() => {
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }, 50);
+  };
 
   // Filter and Sort Processing
   const filteredAndSortedClients = useMemo(() => {
@@ -179,7 +196,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-neutral-950 flex flex-col lg:flex-row">
       {/* Sidebar Navigation */}
       <Sidebar
         open={sidebarOpen}
@@ -194,15 +211,16 @@ export default function Dashboard() {
         <Header
           onMenuClick={() => setSidebarOpen(true)}
           activeTab={activeTab}
+          onSearchClick={handleHeaderSearchClick}
         />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 overflow-auto">
+        <main className="flex-1 p-6 lg:p-8 space-y-6 overflow-auto">
           {/* Top KPI Cards (Interactive Filters) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
               label="Total Clients"
               value={stats.total}
-              color="bg-indigo-600"
+              color="bg-primary-600"
               icon={Users}
               isActive={statusFilter === "All"}
               onClick={() => setStatusFilter("All")}
@@ -211,16 +229,17 @@ export default function Dashboard() {
             <StatsCard
               label="Active"
               value={stats.active}
-              color="bg-emerald-600"
+              color="bg-success-600"
               icon={UserCheck}
               isActive={statusFilter === "Active"}
               onClick={() => setStatusFilter("Active")}
               helperText={`${stats.activeRate}% of total`}
+              trend={{ type: 'positive', value: '12%' }}
             />
             <StatsCard
               label="Pending"
               value={stats.pending}
-              color="bg-amber-600"
+              color="bg-warning-600"
               icon={Clock}
               isActive={statusFilter === "Pending"}
               onClick={() => setStatusFilter("Pending")}
@@ -229,115 +248,221 @@ export default function Dashboard() {
             <StatsCard
               label="Inactive"
               value={stats.inactive}
-              color="bg-rose-600"
+              color="bg-danger-600"
               icon={UserX}
               isActive={statusFilter === "Inactive"}
               onClick={() => setStatusFilter("Inactive")}
               helperText="Paused / archived"
+              trend={{ type: 'negative', value: '3%' }}
             />
           </div>
 
           {/* Conditional View by Active Tab */}
           {activeTab === "reports" ? (
             /* Analytics & Reports View */
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-4">
-                <TrendingUp className="w-5 h-5 text-indigo-400" />
-                <h2 className="text-white text-lg font-bold">Client Portfolio Health & Analytics</h2>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-6">
+              <div className="flex items-center gap-2 border-b border-neutral-800 pb-4">
+                <TrendingUp className="w-5 h-5 text-primary-400" />
+                <h2 className="text-white text-lg font-semibold tracking-tight">Client Portfolio Health & Analytics</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
-                  <span className="text-slate-400 text-xs font-semibold uppercase tracking-wider block mb-1">
+                <div className="bg-neutral-950/60 border border-neutral-800 p-4 rounded-xl">
+                  <span className="text-neutral-500 text-xs font-medium uppercase tracking-wide-label block mb-2">
                     Active Client Ratio
                   </span>
-                  <div className="text-2xl font-bold text-emerald-400 mb-2">{stats.activeRate}%</div>
-                  <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div className="text-2xl font-semibold text-success-400 mb-3 tabular-nums">{stats.activeRate}%</div>
+                  <div className="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                      className="bg-success-500 h-full rounded-full transition-all duration-500"
                       style={{ width: `${stats.activeRate}%` }}
                     />
                   </div>
                 </div>
 
-                <div className="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
-                  <span className="text-slate-400 text-xs font-semibold uppercase tracking-wider block mb-1">
+                <div className="bg-neutral-950/60 border border-neutral-800 p-4 rounded-xl">
+                  <span className="text-neutral-500 text-xs font-medium uppercase tracking-wide-label block mb-2">
                     Pending Onboardings
                   </span>
-                  <div className="text-2xl font-bold text-amber-400 mb-1">{stats.pending}</div>
-                  <p className="text-slate-500 text-xs">Awaiting legal and security sign-offs</p>
+                  <div className="text-2xl font-semibold text-warning-400 mb-1 tabular-nums">{stats.pending}</div>
+                  <p className="text-neutral-500 text-xs">Awaiting legal and security sign-offs</p>
                 </div>
 
-                <div className="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
-                  <span className="text-slate-400 text-xs font-semibold uppercase tracking-wider block mb-1">
+                <div className="bg-neutral-950/60 border border-neutral-800 p-4 rounded-xl">
+                  <span className="text-neutral-500 text-xs font-medium uppercase tracking-wide-label block mb-2">
                     Retention / Inactive
                   </span>
-                  <div className="text-2xl font-bold text-rose-400 mb-1">{stats.inactive}</div>
-                  <p className="text-slate-500 text-xs">Archived accounts eligible for re-engagement</p>
+                  <div className="text-2xl font-semibold text-danger-400 mb-1 tabular-nums">{stats.inactive}</div>
+                  <p className="text-neutral-500 text-xs">Archived accounts eligible for re-engagement</p>
                 </div>
               </div>
 
               <button
                 type="button"
                 onClick={() => setActiveTab("clients")}
-                className="text-indigo-400 hover:text-indigo-300 text-sm font-medium transition flex items-center gap-1.5"
+                className="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors flex items-center gap-1.5"
               >
                 Go to client directory →
               </button>
             </div>
           ) : activeTab === "settings" ? (
             /* Workspace Settings View */
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-4">
-                <Shield className="w-5 h-5 text-indigo-400" />
-                <h2 className="text-white text-lg font-bold">Workspace Configuration & Data Management</h2>
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-6">
+              <div className="flex items-center gap-2 border-b border-neutral-800 pb-4">
+                <Shield className="w-5 h-5 text-primary-400" />
+                <h2 className="text-white text-lg font-semibold tracking-tight">Workspace Configuration & Data Management</h2>
               </div>
 
               <div className="space-y-4 max-w-xl">
-                <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl">
+                <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl">
                   <h3 className="text-white text-sm font-semibold mb-1">Prototype Demo Data</h3>
-                  <p className="text-slate-400 text-xs mb-4 leading-relaxed">
+                  <p className="text-neutral-500 text-xs mb-4 leading-relaxed">
                     Reset all client records back to the initial enterprise mock dataset. This will overwrite any client additions, updates, or deletions made during testing.
                   </p>
                   <button
                     type="button"
                     onClick={() => setResetModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-rose-500/10 text-rose-300 hover:text-rose-200 border border-rose-500/30 text-xs font-semibold rounded-lg transition"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-danger-950/20 text-danger-300 hover:text-danger-200 border border-danger-500/30 text-xs font-medium rounded-lg transition-colors"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                     Reset to Default Demo Clients
                   </button>
                 </div>
 
-                <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl">
+                <div className="p-4 bg-neutral-950/60 border border-neutral-800 rounded-xl">
                   <h3 className="text-white text-sm font-semibold mb-1">Deployment Environment</h3>
-                  <p className="text-slate-400 text-xs mb-2">
+                  <p className="text-neutral-500 text-xs mb-2">
                     Running in prototype mode with HTML5 LocalStorage persistence.
                   </p>
-                  <span className="inline-block px-2.5 py-1 text-[11px] font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 rounded-md">
+                  <span className="inline-block px-2.5 py-1 text-[11px] font-mono bg-primary-950/30 text-primary-300 border border-primary-500/20 rounded-md">
                     ClientHub v1.0.0 (Advanced Frontend Architecture)
                   </span>
                 </div>
               </div>
             </div>
+          ) : activeTab === "help" ? (
+            /* Help & Support Center View */
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-6">
+              <div className="flex items-center gap-2 border-b border-neutral-800 pb-4">
+                <HelpCircle className="w-5 h-5 text-primary-400" />
+                <h2 className="text-white text-lg font-semibold tracking-tight">Help, Documentation & Deployment Guide</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Netlify Drag and Drop Guide */}
+                <div className="p-5 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-primary-400 font-semibold text-sm">
+                    <UploadCloud className="w-4 h-4" />
+                    <h3>Netlify Drag & Drop Deployment</h3>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Deploying this application to Netlify is instant and requires zero server configuration:
+                  </p>
+                  <ol className="list-decimal list-inside text-xs text-neutral-300 space-y-1.5 pl-1">
+                    <li>Run <code className="bg-neutral-800 text-primary-300 px-1.5 py-0.5 rounded font-mono">npm run build</code> in the project directory to generate the production bundle.</li>
+                    <li>Open <a href="https://app.netlify.com/drop" target="_blank" rel="noreferrer" className="text-primary-400 hover:underline inline-flex items-center gap-1">Netlify Drop <ExternalLink className="w-3 h-3" /></a> in your browser.</li>
+                    <li>Drag and drop the generated <strong className="text-white">dist</strong> folder directly into the Netlify drop zone.</li>
+                    <li>SPA redirects (<code className="bg-neutral-800 text-neutral-300 px-1 py-0.5 rounded font-mono">_redirects</code>) are pre-configured so deep routes like <code className="text-neutral-300">/login</code> never 404.</li>
+                  </ol>
+                </div>
+
+                {/* Keyboard Shortcuts */}
+                <div className="p-5 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-primary-400 font-semibold text-sm">
+                    <Keyboard className="w-4 h-4" />
+                    <h3>Keyboard Shortcuts</h3>
+                  </div>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center justify-between py-1.5 border-b border-neutral-800/80">
+                      <span className="text-neutral-300">Focus Client Search</span>
+                      <kbd className="px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded border border-neutral-700 font-mono text-[11px]">
+                        Ctrl + K / ⌘ + K
+                      </kbd>
+                    </div>
+                    <div className="flex items-center justify-between py-1.5 border-b border-neutral-800/80">
+                      <span className="text-neutral-300">Close Modals / Overlays</span>
+                      <kbd className="px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded border border-neutral-700 font-mono text-[11px]">
+                        Escape
+                      </kbd>
+                    </div>
+                    <div className="flex items-center justify-between py-1.5 border-b border-neutral-800/80">
+                      <span className="text-neutral-300">Demo Login Auto-fill</span>
+                      <span className="text-neutral-400 text-[11px]">One-click button on login screen</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Client Status Guide */}
+                <div className="p-5 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-primary-400 font-semibold text-sm">
+                    <BookOpen className="w-4 h-4" />
+                    <h3>Client Lifecycle Statuses</h3>
+                  </div>
+                  <div className="space-y-2.5 text-xs text-neutral-300">
+                    <div className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 rounded-full bg-success-400 mt-1.5 flex-shrink-0" />
+                      <div>
+                        <strong className="text-white">Active:</strong> Verified accounts currently receiving active services and SLA support.
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 rounded-full bg-warning-400 mt-1.5 flex-shrink-0" />
+                      <div>
+                        <strong className="text-white">Pending:</strong> Accounts undergoing legal agreement, security audit, or onboarding review.
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 rounded-full bg-danger-400 mt-1.5 flex-shrink-0" />
+                      <div>
+                        <strong className="text-white">Inactive:</strong> Completed projects, archived contracts, or paused accounts eligible for re-engagement.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data Persistence FAQ */}
+                <div className="p-5 bg-neutral-950/60 border border-neutral-800 rounded-xl space-y-3">
+                  <div className="flex items-center gap-2 text-primary-400 font-semibold text-sm">
+                    <Shield className="w-4 h-4" />
+                    <h3>Storage & Data Persistence</h3>
+                  </div>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    ClientHub persists your changes immediately in browser LocalStorage. You can add, edit, or delete clients freely.
+                  </p>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Need to start fresh? Navigate to <strong className="text-white">Settings</strong> and click <strong className="text-white">Reset to Default Demo Clients</strong> to restore the enterprise mock database at any time.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("clients")}
+                  className="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors flex items-center gap-1.5"
+                >
+                  ← Return to client directory
+                </button>
+              </div>
+            </div>
           ) : (
             /* Dashboard & Clients Directory Table */
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
               {/* Table Controls & Filter Bar */}
-              <div className="p-4 sm:p-5 border-b border-slate-800 flex flex-col gap-4">
+              <div className="p-5 border-b border-neutral-800 flex flex-col gap-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h2 className="text-white font-bold text-base sm:text-lg tracking-tight">
+                    <h2 className="text-white font-semibold text-base tracking-tight">
                       Client Records
                     </h2>
-                    <p className="text-slate-400 text-xs">
+                    <p className="text-neutral-500 text-xs">
                       Manage client lifecycle, status verification, and contact data
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={handleOpenAddModal}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-xl flex items-center gap-2 justify-center shadow-lg shadow-indigo-600/20 transition"
+                    className="bg-primary-600 hover:bg-primary-500 text-white text-sm font-medium px-4 py-2 rounded-lg flex items-center gap-2 justify-center transition-colors"
                   >
                     <Plus className="w-4 h-4" /> Add New Client
                   </button>
@@ -347,20 +472,21 @@ export default function Dashboard() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   {/* Search Input with Clear Button */}
                   <div className="relative flex-1">
-                    <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-500" />
+                    <Search className="w-4 h-4 absolute left-3.5 top-3 text-neutral-500" />
                     <input
+                      ref={searchInputRef}
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       aria-label="Search clients by name, email, or company"
                       placeholder="Search clients by name, email, or company..."
-                      className="bg-slate-950/60 border border-slate-700/80 rounded-xl pl-10 pr-9 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 w-full transition"
+                      className="bg-neutral-950/60 border border-neutral-700 rounded-lg pl-10 pr-9 py-2 text-sm text-white placeholder-neutral-500 input-focus-ring w-full transition-colors"
                     />
                     {search && (
                       <button
                         type="button"
                         onClick={() => setSearch("")}
                         aria-label="Clear search input"
-                        className="absolute right-3 top-2.5 text-slate-400 hover:text-white p-0.5 rounded transition"
+                        className="absolute right-3 top-2.5 text-neutral-400 hover:text-white p-0.5 rounded transition-colors"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -377,7 +503,7 @@ export default function Dashboard() {
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
                       aria-label="Filter clients by status"
-                      className="bg-slate-950/60 border border-slate-700/80 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition min-w-[130px]"
+                      className="bg-neutral-950/60 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white input-focus-ring transition-colors min-w-[130px]"
                     >
                       <option value="All">All Statuses</option>
                       <option value="Active">Active Only</option>
@@ -391,7 +517,7 @@ export default function Dashboard() {
                         type="button"
                         onClick={handleClearFilters}
                         title="Reset search and filters"
-                        className="inline-flex items-center gap-1.5 border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-3 py-2 rounded-xl transition"
+                        className="inline-flex items-center gap-1.5 border border-neutral-700 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-sm px-3 py-2 rounded-lg transition-colors"
                       >
                         <RotateCcw className="w-3.5 h-3.5" />
                         <span className="hidden sm:inline">Reset</span>
@@ -402,16 +528,16 @@ export default function Dashboard() {
               </div>
 
               {/* Status Header Bar */}
-              <div className="px-4 py-2.5 text-xs text-slate-400 border-b border-slate-800 bg-slate-950/40 flex items-center justify-between">
+              <div className="px-5 py-2.5 text-xs text-neutral-500 border-b border-neutral-800 bg-neutral-950/40 flex items-center justify-between">
                 <span>
-                  Showing <strong className="text-white">{filteredAndSortedClients.length}</strong> of{" "}
-                  <strong className="text-white">{clients.length}</strong> total clients
+                  Showing <strong className="text-neutral-300">{filteredAndSortedClients.length}</strong> of{" "}
+                  <strong className="text-neutral-300">{clients.length}</strong> total clients
                   {statusFilter !== "All" && (
-                    <span className="ml-1 text-indigo-400">({statusFilter} filter active)</span>
+                    <span className="ml-1 text-primary-400">({statusFilter} filter active)</span>
                   )}
                 </span>
                 {sortConfig.key && (
-                  <span className="text-[11px] text-slate-500">
+                  <span className="text-[11px] text-neutral-500">
                     Sorted by {sortConfig.key} ({sortConfig.direction})
                   </span>
                 )}

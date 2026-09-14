@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { BarChart3, Lock, Mail, Eye, EyeOff, Sparkles, AlertCircle } from "lucide-react";
+import { BarChart3, Lock, Mail, Eye, EyeOff, Sparkles, AlertCircle, Copy, Check } from "lucide-react";
 
 export default function Login() {
   const { login } = useAuth();
@@ -9,6 +9,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,110 +43,180 @@ export default function Login() {
     setError("");
   };
 
+  const handleCopyCredentials = () => {
+    const credentials = "admin@demo.com / admin123";
+    navigator.clipboard.writeText(credentials);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-4 py-8">
-      <div className="w-full max-w-md bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60">
-        {/* Brand Header */}
-        <div className="flex flex-col items-center mb-6 text-center">
-          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-3 shadow-lg shadow-indigo-500/25">
-            <BarChart3 className="w-7 h-7 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">ClientHub Admin</h1>
-          <p className="text-slate-400 text-sm mt-1">Sign in to access your administrative dashboard</p>
+    <div className="min-h-screen flex flex-col lg:flex-row bg-neutral-950">
+      {/* Left Brand Panel - Desktop */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-950 via-neutral-950 to-neutral-900 relative overflow-hidden">
+        {/* Animated dots pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-20 w-2 h-2 bg-primary-400 rounded-full animate-pulse" />
+          <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-primary-300 rounded-full animate-pulse" style={{ animationDelay: '100ms' }} />
+          <div className="absolute bottom-32 left-40 w-2 h-2 bg-primary-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }} />
+          <div className="absolute bottom-20 right-20 w-1 h-1 bg-primary-400 rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+          <div className="absolute top-1/2 left-1/3 w-1.5 h-1.5 bg-primary-300 rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
         </div>
 
-        {/* Error Notice */}
-        {error && (
-          <div
-            role="alert"
-            aria-live="polite"
-            className="flex items-center gap-2 bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm p-3 rounded-xl mb-4"
-          >
-            <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-400" />
-            <span>{error}</span>
+        <div className="relative z-10 flex flex-col justify-center items-center p-12 text-center">
+          <div className="w-20 h-20 bg-primary-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary-600/20">
+            <BarChart3 className="w-10 h-10 text-white" strokeWidth={1.5} />
           </div>
-        )}
+          <h1 className="text-4xl font-semibold text-white tracking-tight mb-4">
+            ClientHub
+          </h1>
+          <p className="text-neutral-400 text-lg max-w-md">
+            Enterprise-grade client management for modern teams
+          </p>
+          <div className="mt-12 flex items-center gap-6 text-neutral-500 text-sm">
+            <span>Secure Authentication</span>
+            <span>•</span>
+            <span>Real-time Analytics</span>
+            <span>•</span>
+            <span>Team Collaboration</span>
+          </div>
+        </div>
+      </div>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-          {/* Email */}
-          <div>
-            <label htmlFor="login-email" className="text-slate-300 text-xs sm:text-sm font-medium mb-1.5 block">
-              Email Address
-            </label>
-            <div className="relative">
-              <Mail className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500" />
-              <input
-                id="login-email"
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (error) setError("");
-                }}
-                aria-invalid={Boolean(error)}
-                className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                placeholder="admin@demo.com"
-              />
+      {/* Right Login Form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
+        <div className="w-full max-w-md">
+          {/* Mobile Brand Header */}
+          <div className="lg:hidden flex flex-col items-center mb-8 text-center">
+            <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-primary-600/20">
+              <BarChart3 className="w-8 h-8 text-white" strokeWidth={1.5} />
             </div>
+            <h1 className="text-2xl font-semibold text-white tracking-tight">
+              ClientHub
+            </h1>
           </div>
 
-          {/* Password */}
-          <div>
-            <label htmlFor="login-password" className="text-slate-300 text-xs sm:text-sm font-medium mb-1.5 block">
-              Password
-            </label>
-            <div className="relative">
-              <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500" />
-              <input
-                id="login-password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (error) setError("");
-                }}
-                aria-invalid={Boolean(error)}
-                className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl pl-10 pr-10 py-2.5 sm:py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
-                placeholder="••••••••"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                className="absolute right-3.5 top-3.5 text-slate-500 hover:text-slate-300 transition"
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 shadow-elevated">
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-white tracking-tight mb-2">
+                Sign in to your account
+              </h2>
+              <p className="text-neutral-500 text-sm">
+                Enter your credentials to access the dashboard
+              </p>
+            </div>
+
+            {/* Error Notice */}
+            {error && (
+              <div
+                role="alert"
+                aria-live="polite"
+                className="flex items-center gap-2 bg-danger-950/30 border border-danger-500/30 text-danger-300 text-sm p-3 rounded-lg mb-6"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              {/* Email */}
+              <div>
+                <label htmlFor="login-email" className="text-neutral-300 text-xs font-medium mb-1.5 block">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 absolute left-3.5 top-3 text-neutral-500" />
+                  <input
+                    id="login-email"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError("");
+                    }}
+                    aria-invalid={Boolean(error)}
+                    className="w-full bg-neutral-800 border border-neutral-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-neutral-500 text-sm input-focus-ring transition-colors"
+                    placeholder="admin@demo.com"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label htmlFor="login-password" className="text-neutral-300 text-xs font-medium mb-1.5 block">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 absolute left-3.5 top-3 text-neutral-500" />
+                  <input
+                    id="login-password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (error) setError("");
+                    }}
+                    aria-invalid={Boolean(error)}
+                    className="w-full bg-neutral-800 border border-neutral-700 rounded-lg pl-10 pr-10 py-2.5 text-white placeholder-neutral-500 text-sm input-focus-ring transition-colors"
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3.5 top-3 text-neutral-500 hover:text-neutral-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-primary-600 hover:bg-primary-500 disabled:bg-primary-500/70 disabled:cursor-not-allowed text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm mt-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Authenticating...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
               </button>
-            </div>
-          </div>
+            </form>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-500/70 disabled:cursor-not-allowed text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 text-sm mt-2"
-          >
-            {isSubmitting ? "Authenticating..." : "Sign In to Dashboard"}
-          </button>
-        </form>
-
-        {/* Demo Helper Banner */}
-        <div className="mt-6 pt-4 border-t border-slate-800/80 text-center">
-          <div className="flex items-center justify-between bg-slate-950/40 border border-slate-800 rounded-xl p-3">
-            <div className="text-left">
-              <span className="text-xs font-semibold text-slate-300 block">Demo Credentials</span>
-              <span className="text-[11px] text-slate-500 font-mono">admin@demo.com / admin123</span>
+            {/* Demo Helper Banner */}
+            <div className="mt-6 pt-6 border-t border-neutral-800">
+              <div className="flex items-center justify-between bg-neutral-950/50 border border-neutral-800 rounded-lg p-3">
+                <div className="text-left flex-1">
+                  <span className="text-xs font-medium text-neutral-300 block mb-0.5">Demo Credentials</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-neutral-500 font-mono">admin@demo.com / admin123</span>
+                    <button
+                      type="button"
+                      onClick={handleCopyCredentials}
+                      className="text-neutral-400 hover:text-white transition-colors"
+                      title="Copy credentials"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleFillDemo}
+                  className="text-xs font-medium text-primary-400 hover:text-primary-300 px-3 py-1.5 rounded-lg bg-primary-950/30 hover:bg-primary-950/50 border border-primary-500/30 flex items-center gap-1.5 transition-colors ml-3"
+                >
+                  <Sparkles className="w-3 h-3" /> Auto-fill
+                </button>
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={handleFillDemo}
-              className="text-xs font-medium text-indigo-400 hover:text-indigo-300 px-2.5 py-1.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 flex items-center gap-1 transition"
-            >
-              <Sparkles className="w-3 h-3" /> Auto-fill
-            </button>
           </div>
         </div>
       </div>

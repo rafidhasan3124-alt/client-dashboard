@@ -1,11 +1,24 @@
 import { useEffect } from "react";
-import { LayoutDashboard, Users, BarChart3, Settings, X, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Users, BarChart3, Settings, HelpCircle, X, LogOut } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { getInitials } from "../utils/formatters";
 
-const navItems = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { id: "clients", label: "Clients", icon: Users },
-  { id: "reports", label: "Reports", icon: BarChart3 },
-  { id: "settings", label: "Settings", icon: Settings },
+const navGroups = [
+  {
+    label: "Main",
+    items: [
+      { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { id: "clients", label: "Clients", icon: Users },
+      { id: "reports", label: "Reports", icon: BarChart3 },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { id: "settings", label: "Settings", icon: Settings },
+      { id: "help", label: "Help", icon: HelpCircle },
+    ],
+  },
 ];
 
 export default function Sidebar({
@@ -15,6 +28,7 @@ export default function Sidebar({
   onSelectTab,
   clientCount = 0,
 }) {
+  const { user, logout } = useAuth();
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && open) {
@@ -41,29 +55,26 @@ export default function Sidebar({
         <div
           onClick={onClose}
           aria-hidden="true"
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden transition-opacity"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden transition-opacity duration-200"
         />
       )}
 
       {/* Sidebar Drawer */}
       <aside
         aria-label="Main Navigation"
-        className={`fixed lg:static top-0 left-0 h-full w-64 bg-slate-900 border-r border-slate-800 z-40 flex flex-col transform transition-transform duration-200 ease-in-out ${
+        className={`fixed lg:static top-0 left-0 h-full w-[260px] bg-neutral-950 border-r border-neutral-800 z-40 flex flex-col transform transition-transform duration-200 ease-out ${
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         {/* Brand Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md shadow-indigo-500/20">
-              <BarChart3 className="w-5 h-5 text-white" />
+        <div className="flex items-center justify-between p-6 border-b border-neutral-800">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-primary-600 rounded-lg flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-white" strokeWidth={1.75} />
             </div>
             <div>
-              <span className="text-white font-bold text-base tracking-tight block">
+              <span className="text-white font-semibold text-base tracking-tight">
                 ClientHub
-              </span>
-              <span className="text-[10px] text-indigo-400 font-medium tracking-wide uppercase">
-                Admin Console
               </span>
             </div>
           </div>
@@ -71,61 +82,72 @@ export default function Sidebar({
             type="button"
             onClick={onClose}
             aria-label="Close navigation sidebar"
-            className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg transition"
+            className="lg:hidden text-neutral-400 hover:text-white p-1.5 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Navigation Links */}
-        <nav className="p-4 space-y-1.5 flex-1 overflow-y-auto">
-          <span className="px-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-2">
-            Main Menu
-          </span>
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleTabClick(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition ${
-                  isActive
-                    ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold"
-                    : "text-slate-400 hover:bg-slate-800/60 hover:text-white"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Icon className={`w-4 h-4 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
-                  <span>{item.label}</span>
-                </div>
-                {item.id === "clients" && clientCount > 0 && (
-                  <span
-                    className={`text-xs px-2 py-0.5 rounded-full ${
-                      isActive
-                        ? "bg-indigo-500 text-white font-semibold"
-                        : "bg-slate-800 text-slate-400"
-                    }`}
-                  >
-                    {clientCount}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+        <nav className="p-4 flex-1 overflow-y-auto space-y-6">
+          {navGroups.map((group) => (
+            <div key={group.label}>
+              <span className="px-3 text-[11px] font-medium text-neutral-500 uppercase tracking-wide-label block mb-2">
+                {group.label}
+              </span>
+              <div className="space-y-0.5">
+                {group.items.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleTabClick(item.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                        isActive
+                          ? "bg-primary-500/10 text-primary-400 border-l-2 border-primary-500"
+                          : "text-neutral-400 hover:bg-neutral-800/50 hover:text-neutral-200 border-l-2 border-transparent"
+                      }`}
+                    >
+                      <Icon className={`w-[18px] h-[18px] ${isActive ? "text-primary-400" : "text-neutral-400"}`} strokeWidth={1.75} />
+                      <span>{item.label}</span>
+                      {item.id === "clients" && clientCount > 0 && (
+                        <span className="ml-auto text-xs text-neutral-500">
+                          {clientCount}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </nav>
 
-        {/* Footer Badge / Environment */}
-        <div className="p-4 border-t border-slate-800">
-          <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-              <ShieldCheck className="w-4 h-4" />
+        {/* User Profile Card */}
+        <div className="p-4 border-t border-neutral-800">
+          <div className="flex items-center gap-3 p-2 rounded-lg bg-neutral-900/50 border border-neutral-800/80">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+              {getInitials(user?.name || "Admin User")}
             </div>
-            <div>
-              <div className="text-white text-xs font-medium">Enterprise Demo</div>
-              <div className="text-slate-500 text-[10px]">ClientHub v1.0.0</div>
+            <div className="flex-1 min-w-0">
+              <div className="text-white text-sm font-medium truncate">
+                {user?.name || "Admin User"}
+              </div>
+              <div className="text-neutral-500 text-xs truncate">
+                {user?.email || "admin@demo.com"}
+              </div>
             </div>
+            <button
+              type="button"
+              onClick={logout}
+              aria-label="Sign out"
+              title="Sign out"
+              className="text-neutral-400 hover:text-danger-400 p-1.5 rounded-lg hover:bg-neutral-800 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </aside>

@@ -6,6 +6,7 @@ export default function StatsCard({
   onClick,
   isActive = false,
   helperText,
+  trend,
 }) {
   const Component = onClick ? "button" : "div";
 
@@ -13,24 +14,37 @@ export default function StatsCard({
     <Component
       type={onClick ? "button" : undefined}
       onClick={onClick}
-      className={`text-left w-full bg-slate-900 border rounded-xl p-4 sm:p-5 transition-all relative overflow-hidden ${
+      className={`text-left w-full bg-neutral-900 border rounded-xl p-5 card-hover relative overflow-hidden ${
         isActive
-          ? "border-indigo-500 ring-2 ring-indigo-500/20 bg-slate-800/80 shadow-lg shadow-indigo-500/10"
-          : "border-slate-800 hover:border-slate-700 hover:bg-slate-800/40"
-      } ${onClick ? "cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500" : ""}`}
+          ? "border-primary-500/50 bg-primary-950/10"
+          : "border-neutral-800"
+      } ${onClick ? "cursor-pointer" : ""}`}
     >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-slate-400 text-xs sm:text-sm font-medium">{label}</span>
-        <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center ${color} shadow-sm`}>
-          <Icon className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="flex items-baseline gap-2">
-        <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{value}</div>
-        {helperText && (
-          <span className="text-xs text-slate-500 hidden sm:inline">{helperText}</span>
+      <div className="flex items-start justify-between mb-3">
+        <span className="text-[11px] font-medium text-neutral-500 uppercase tracking-wide-label">
+          {label}
+        </span>
+        {Icon && (
+          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${color}`}>
+            <Icon className="w-4 h-4 text-white" strokeWidth={1.75} />
+          </div>
         )}
       </div>
+      <div className="flex items-baseline gap-2 mb-1">
+        <div className="text-2xl font-semibold text-white tabular-nums tracking-tight">
+          {value}
+        </div>
+        {trend && (
+          <span className={`text-xs font-medium flex items-center ${
+            trend.type === 'positive' ? 'text-success-400' : 'text-danger-400'
+          }`}>
+            {trend.type === 'positive' ? '↑' : '↓'} {trend.value}
+          </span>
+        )}
+      </div>
+      {helperText && (
+        <p className="text-xs text-neutral-500">{helperText}</p>
+      )}
     </Component>
   );
 }

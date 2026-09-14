@@ -1,0 +1,376 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Length 6202 >>
+stream
+0.84 0.86 0.90 RG 0.5 w
+54 40 m 558 40 l S
+0.50 0.54 0.62 rg
+BT /F1 8 Tf 54 28 Td (Web Development -- Advanced Level Portfolio Submission) Tj ET
+BT /F2 8 Tf 522 28 Td (Page 1) Tj ET
+0 0 0 rg
+0.25 0.32 0.82 rg
+54 738 504 4 re f
+0 0 0 rg
+0.06 0.09 0.16 rg
+BT /F2 20 Tf 24 TL 54 718 Td (ClientHub -- Client Management Dashboard) Tj ET
+0 0 0 rg
+0.32 0.38 0.48 rg
+BT /F1 10.5 Tf 14 TL 54 696 Td (Assignment Submission Report | Advanced Web Development Prototype) Tj ET
+0 0 0 rg
+0.96 0.97 0.99 rg
+54 658 504 26 re f
+0.86 0.89 0.94 RG 0.75 w
+54 658 504 26 re S
+0.22 0.28 0.40 rg
+BT /F2 8.5 Tf 66 668 Td (Domain:) Tj ET
+BT /F1 8.5 Tf 110 668 Td (Frontend Engineering & UI/UX Architecture) Tj ET
+BT /F2 8.5 Tf 344 668 Td (Assessment:) Tj ET
+BT /F1 8.5 Tf 410 668 Td (Advanced Level Prototype) Tj ET
+0 0 0 rg
+0.28 0.35 0.85 rg
+54 632.5 3.5 13 re f
+0.08 0.12 0.24 rg
+BT /F2 12.5 Tf 15 TL 64 634 Td (1. Project Objective) Tj ET
+0.90 0.92 0.95 RG 0.5 w
+64 629 m 558 629 l S
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 614 Td (The primary objective of ClientHub is to deliver a robust, production-grade Client Management and Admin) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 600.5 Td (Dashboard prototype designed for enterprise administration, account monitoring, and operational team) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 587 Td (governance. The system consolidates customer information, account lifecycles, and verification statuses) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 573.5 Td (into a singular, responsive control console.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 554 Td (Engineered with modern frontend standards, the project emphasizes practical problem solving: eliminating) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 540.5 Td (data fragmentation, safeguarding records through protected deletion guards, delivering compound) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 527 Td (multi-field search and status filtering, guaranteeing zero session loss on page reload, and adhering to) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 513.5 Td (strict WCAG accessibility principles.) Tj ET
+0 0 0 rg
+0.28 0.35 0.85 rg
+54 486.5 3.5 13 re f
+0.08 0.12 0.24 rg
+BT /F2 12.5 Tf 15 TL 64 488 Td (2. Technology Used) Tj ET
+0.90 0.92 0.95 RG 0.5 w
+64 483 m 558 483 l S
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 468 Td (The application stack was selected to achieve optimal frontend architecture, high runtime performance,) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 454.5 Td (and clean maintainability without bloated or unvetted dependencies:) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 435 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 435 Td (Frontend Framework: React 18 utilizing Functional Components, Hooks \(useState, useEffect, useMemo, useContext,) Tj ET
+BT /F1 9 Tf 13 TL 72 422 Td (useRef\), and unidirectional data flow.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 405 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 405 Td (Build Tool & Bundler: Vite 5 providing rapid Hot Module Replacement \(HMR\), tree-shaking, and Rollup-based) Tj ET
+BT /F1 9 Tf 13 TL 72 392 Td (production optimization.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 375 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 375 Td (Routing Engine: React Router DOM v6 delivering declarative client-side routing, protected session guards, and) Tj ET
+BT /F1 9 Tf 13 TL 72 362 Td (wildcard 404 redirections.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 345 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 345 Td (Styling & Design System: Tailwind CSS v3 and PostCSS featuring a custom high-contrast dark palette, fluid) Tj ET
+BT /F1 9 Tf 13 TL 72 332 Td (responsive grid architecture, and micro-interactions.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 315 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 315 Td (Iconography: Lucide React providing scalable, accessible, and lightweight SVG icons.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 298 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 298 Td (State Management & Storage: React Context API \(AuthContext, ClientContext\) integrated with HTML5 LocalStorage) Tj ET
+BT /F1 9 Tf 13 TL 72 285 Td (via synchronous lazy-initialization for cold reload resilience.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 268 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 268 Td (Automated Testing Suite: Node.js built-in Test Runner \(node:test, node:assert\) executing 27 automated unit and) Tj ET
+BT /F1 9 Tf 13 TL 72 255 Td (integration tests with zero external dependencies.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 238 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 238 Td (Cloud Deployment: Netlify with custom netlify.toml and public/_redirects SPA rewrite configuration ensuring) Tj ET
+BT /F1 9 Tf 13 TL 72 225 Td (seamless 200 HTTP deep-link navigation.) Tj ET
+0 0 0 rg
+0.28 0.35 0.85 rg
+54 200.5 3.5 13 re f
+0.08 0.12 0.24 rg
+BT /F2 12.5 Tf 15 TL 64 202 Td (3. Features) Tj ET
+0.90 0.92 0.95 RG 0.5 w
+64 197 m 558 197 l S
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 182 Td (ClientHub delivers a comprehensive set of verified capabilities fulfilling all advanced evaluation) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 168.5 Td (criteria:) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 149 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 149 Td (Authentication UI & Session Engine: Professional sign-in interface featuring email regex validation, real-time) Tj ET
+BT /F1 9 Tf 13 TL 72 136 Td (error clearing upon input, password visibility reveal toggle, one-click demo credentials auto-fill, and) Tj ET
+BT /F1 9 Tf 13 TL 72 123 Td (immediate session persistence without reload redirection.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 106 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 106 Td (Sidebar Navigation: Semantic navigation drawer with active view states \(Dashboard Overview, Client Directory,) Tj ET
+BT /F1 9 Tf 13 TL 72 93 Td (Analytics & Reports, Settings\), off-canvas mobile drawer with backdrop overlay, and Escape key dismissal.) Tj ET
+0 0 0 rg
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 7648 >>
+stream
+0.48 0.52 0.60 rg
+BT /F1 8 Tf 54 758 Td (ClientHub -- Client Management Dashboard | Technical Submission Report) Tj ET
+0.84 0.86 0.90 RG 0.5 w
+54 752 m 558 752 l S
+0 0 0 rg
+0.84 0.86 0.90 RG 0.5 w
+54 40 m 558 40 l S
+0.50 0.54 0.62 rg
+BT /F1 8 Tf 54 28 Td (Web Development -- Advanced Level Portfolio Submission) Tj ET
+BT /F2 8 Tf 522 28 Td (Page 2) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 738 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 738 Td (Client List & Tabular Directory: High-contrast data table displaying client avatars with calculated initials,) Tj ET
+BT /F1 9 Tf 13 TL 72 725 Td (verified emails, companies, status badges, and formatted dates, supported by contextual empty states.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 708 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 708 Td (Client Status Management: Distinguishable color-coded status badges \(Active: Emerald, Pending: Amber,) Tj ET
+BT /F1 9 Tf 13 TL 72 695 Td (Inactive: Rose\) with glowing dot indicators, plus one-click status transitions inside the detail drawer.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 678 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 678 Td (Multi-Field Real-Time Search: Instant, case-insensitive querying simultaneously evaluating client name, email) Tj ET
+BT /F1 9 Tf 13 TL 72 665 Td (address, company name, and phone number, with an inline clear \(X\) action.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 648 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 648 Td (Compound Filtering & KPI Cards: Dropdown status filtering and interactive top KPI cards that act as quick) Tj ET
+BT /F1 9 Tf 13 TL 72 635 Td (status filters, enforcing strict logical AND evaluation when combining search with status filters.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 618 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 618 Td (Multi-Column Table Sorting: Interactive column header sorting across Client Name, Company, Status, and Join) Tj ET
+BT /F1 9 Tf 13 TL 72 605 Td (Date with ascending/descending directional indicators.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 588 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 588 Td (Client Data Interactions \(CRUD\): Full client profile view modal with direct contact links \(mailto, tel\),) Tj ET
+BT /F1 9 Tf 13 TL 72 575 Td (add/edit client modal with input validation, accessible confirmation modal \(ConfirmModal\) protecting against) Tj ET
+BT /F1 9 Tf 13 TL 72 562 Td (accidental record loss, and demo data reset.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 545 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 545 Td (Responsive & Accessible Architecture: Tested across mobile, tablet, laptop, and desktop viewports, featuring) Tj ET
+BT /F1 9 Tf 13 TL 72 532 Td (ARIA attributes \(role=dialog, aria-modal, role=alert\) and input-to-label associations.) Tj ET
+0 0 0 rg
+0.28 0.35 0.85 rg
+54 507.5 3.5 13 re f
+0.08 0.12 0.24 rg
+BT /F2 12.5 Tf 15 TL 64 509 Td (4. Technical Explanation) Tj ET
+0.90 0.92 0.95 RG 0.5 w
+64 504 m 558 504 l S
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 489 Td (The technical implementation of ClientHub reflects advanced software engineering principles:) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 469.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 469.5 Td (Component Modularity & Separation of Concerns: Presentation components \(StatusBadge, StatsCard, ClientTable,) Tj ET
+BT /F1 9 Tf 13 TL 72 456.5 Td (ClientModal, ConfirmModal, ClientDetailModal\) are strictly decoupled from state orchestrators \(Dashboard.jsx,) Tj ET
+BT /F1 9 Tf 13 TL 72 443.5 Td (Login.jsx\), preventing bloated components and duplicate UI logic.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 426.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 426.5 Td (Unidirectional Flow & Derived State Pipelines: Data flows downward from centralized context stores. Search,) Tj ET
+BT /F1 9 Tf 13 TL 72 413.5 Td (filtering, and sorting are computed purely as derived state via useMemo pipelines. This eliminates state) Tj ET
+BT /F1 9 Tf 13 TL 72 400.5 Td (desynchronization, stale caches, and redundant re-render cascades.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 383.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 383.5 Td (Session Persistence Architecture: Resolved the critical React reload bug where asynchronous useEffect loading) Tj ET
+BT /F1 9 Tf 13 TL 72 370.5 Td (caused ProtectedRoute to prematurely redirect authenticated users to login. User state is now synchronously) Tj ET
+BT /F1 9 Tf 13 TL 72 357.5 Td (initialized using lazy useState\(\(\) => JSON.parse\(localStorage.getItem\('user'\)\)\).) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 340.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 340.5 Td (Timezone-Safe Date Parsing: Engineered formatters.js to parse ISO and YYYY-MM-DD strings explicitly,) Tj ET
+BT /F1 9 Tf 13 TL 72 327.5 Td (preventing JavaScript Date UTC midnight off-by-one errors that alter dates across local timezones.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 310.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 310.5 Td (Destructive Action Guard Pattern: Implemented ConfirmModal with keyboard trapping and Escape listener to) Tj ET
+BT /F1 9 Tf 13 TL 72 297.5 Td (separate user intent from execution during record deletions and database resets.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 280.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 280.5 Td (Production SPA Route Resilience: Configured netlify.toml and public/_redirects mapping '/* /index.html 200' to) Tj ET
+BT /F1 9 Tf 13 TL 72 267.5 Td (guarantee that direct navigation or browser refreshes on routes like /login or /dashboard never trigger) Tj ET
+BT /F1 9 Tf 13 TL 72 254.5 Td (Netlify 404 errors.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 237.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 237.5 Td (Automated Testing Verification: 27 unit and integration tests verify authentication validation, credential) Tj ET
+BT /F1 9 Tf 13 TL 72 224.5 Td (matching, client CRUD operations, search/filter logical combinations, column sorting, and KPI math.) Tj ET
+0 0 0 rg
+0.28 0.35 0.85 rg
+54 200 3.5 13 re f
+0.08 0.12 0.24 rg
+BT /F2 12.5 Tf 15 TL 64 201.5 Td (5. What Problem the Project Solves) Tj ET
+0.90 0.92 0.95 RG 0.5 w
+64 196.5 m 558 196.5 l S
+0 0 0 rg
+0.16 0.20 0.26 rg
+BT /F1 9.5 Tf 13.5 TL 54 181.5 Td (ClientHub addresses fundamental operational, administrative, and technical challenges faced by businesses) Tj ET
+BT /F1 9.5 Tf 13.5 TL 54 168 Td (managing client portfolios:) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 148.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 148.5 Td (Overcoming Data Fragmentation: Scattered client emails, phone numbers, onboarding stages, and account notes) Tj ET
+BT /F1 9 Tf 13 TL 72 135.5 Td (are unified into a centralized, searchable administrative dashboard.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 118.5 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 118.5 Td (Preventing Accidental Data Loss: Conventional prototypes execute deletions immediately upon clicking delete) Tj ET
+BT /F1 9 Tf 13 TL 72 105.5 Td (icons. ClientHub introduces guarded confirmation dialogs to ensure data integrity and prevent costly) Tj ET
+BT /F1 9 Tf 13 TL 72 92.5 Td (administrative errors.) Tj ET
+0 0 0 rg
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1607 >>
+stream
+0.48 0.52 0.60 rg
+BT /F1 8 Tf 54 758 Td (ClientHub -- Client Management Dashboard | Technical Submission Report) Tj ET
+0.84 0.86 0.90 RG 0.5 w
+54 752 m 558 752 l S
+0 0 0 rg
+0.84 0.86 0.90 RG 0.5 w
+54 40 m 558 40 l S
+0.50 0.54 0.62 rg
+BT /F1 8 Tf 54 28 Td (Web Development -- Advanced Level Portfolio Submission) Tj ET
+BT /F2 8 Tf 522 28 Td (Page 3) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 738 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 738 Td (Eliminating Information Retrieval Bottlenecks: Locating specific clients in large datasets is accelerated) Tj ET
+BT /F1 9 Tf 13 TL 72 725 Td (through real-time compound querying \(instant name/email/company search combined with lifecycle status filters) Tj ET
+BT /F1 9 Tf 13 TL 72 712 Td (and column sorting\).) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 695 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 695 Td (Eliminating SPA Session Friction: Poorly architected single-page applications frequently boot users back to) Tj ET
+BT /F1 9 Tf 13 TL 72 682 Td (the login screen upon refreshing. ClientHub provides seamless state rehydration with HTML5 LocalStorage) Tj ET
+BT /F1 9 Tf 13 TL 72 669 Td (persistence.) Tj ET
+0 0 0 rg
+0.16 0.20 0.26 rg
+0.28 0.35 0.85 rg
+BT /F2 10 Tf 54 652 Td (-) Tj ET
+0.16 0.20 0.26 rg
+BT /F1 9 Tf 13 TL 62 652 Td (Providing Portfolio Health Visibility: Visual KPI statistics and status distribution cards give administrators) Tj ET
+BT /F1 9 Tf 13 TL 72 639 Td (immediate operational insight into active clients, pending approvals, and retention metrics.) Tj ET
+0 0 0 rg
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000019 00000 n 
+0000000068 00000 n 
+0000000138 00000 n 
+0000000235 00000 n 
+0000000337 00000 n 
+0000006591 00000 n 
+0000006727 00000 n 
+0000014427 00000 n 
+0000014563 00000 n 
+0000016222 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R >>
+startxref
+16359
+%%EOF

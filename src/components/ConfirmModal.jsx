@@ -17,8 +17,14 @@ export default function ConfirmModal({
         onClose();
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -28,7 +34,7 @@ export default function ConfirmModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-modal-title"
-      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-150"
+      className="fixed inset-0 modal-backdrop z-50 flex items-center justify-center p-4 animate-fade-in"
     >
       <div
         className="fixed inset-0"
@@ -36,17 +42,17 @@ export default function ConfirmModal({
         aria-hidden="true"
       />
 
-      <div className="relative bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl z-10">
+      <div className="relative bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-md p-6 shadow-modal z-10 animate-scale-in">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
             <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                isDanger ? "bg-red-500/10 text-red-400" : "bg-indigo-500/10 text-indigo-400"
+              className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                isDanger ? "bg-danger-950/30 text-danger-400" : "bg-primary-950/30 text-primary-400"
               }`}
             >
               <AlertTriangle className="w-5 h-5" />
             </div>
-            <h3 id="confirm-modal-title" className="text-lg font-bold text-white">
+            <h3 id="confirm-modal-title" className="text-lg font-semibold text-white tracking-tight">
               {title}
             </h3>
           </div>
@@ -54,13 +60,13 @@ export default function ConfirmModal({
             type="button"
             onClick={onClose}
             aria-label="Close confirmation dialog"
-            className="text-slate-400 hover:text-white p-1 rounded-lg transition"
+            className="text-neutral-400 hover:text-white p-1.5 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-slate-300 text-sm mb-6 leading-relaxed">
+        <p className="text-neutral-300 text-sm mb-6 leading-relaxed">
           {message}
         </p>
 
@@ -68,7 +74,7 @@ export default function ConfirmModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition"
+            className="px-4 py-2 text-sm font-medium text-neutral-300 hover:text-white bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors"
           >
             {cancelText}
           </button>
@@ -78,10 +84,10 @@ export default function ConfirmModal({
               onConfirm();
               onClose();
             }}
-            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition ${
+            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${
               isDanger
-                ? "bg-red-600 hover:bg-red-500 focus:ring-2 focus:ring-red-500/50"
-                : "bg-indigo-600 hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500/50"
+                ? "bg-danger-600 hover:bg-danger-500"
+                : "bg-primary-600 hover:bg-primary-500"
             }`}
           >
             {confirmText}

@@ -228,3 +228,25 @@ node --test tests/dashboard.test.js
 
 4. **Verify SPA Routing**:
    - Both `netlify.toml` and `public/_redirects` are pre-configured to rewrite `/*` to `/index.html` with status `200`. Direct navigation and page reloads on any route will work smoothly.
+
+---
+
+### Option 2: Drag & Drop Deploy on Netlify (Instant)
+
+If you want to deploy directly without connecting a Git repository:
+
+1. **Build the production bundle**:
+   ```bash
+   npm run build
+   ```
+   *(This generates the optimized `dist/` directory containing the compiled SPA, static assets, and `_redirects` file).*
+
+2. **Open Netlify Drop**:
+   - Go to [app.netlify.com/drop](https://app.netlify.com/drop) in your browser.
+
+3. **Drag and Drop the `dist` folder**:
+   - Drag the `dist` folder from your file manager into the upload area on Netlify Drop.
+   - Netlify will instantly deploy your site and generate a live URL.
+
+4. **Verify Deep Linking**:
+   - Refresh `/login` or navigate between tabs; thanks to `_redirects` in `dist/`, all routes resolve seamlessly.

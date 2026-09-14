@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, Bell, LogOut, Check } from "lucide-react";
+import { Menu, Bell, Search, LogOut, Check, MoreVertical } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { getInitials } from "../utils/formatters";
 
@@ -28,89 +28,112 @@ const initialNotifications = [
 ];
 
 const titles = {
-  dashboard: "Dashboard Overview",
-  clients: "Client Directory",
-  reports: "Analytics & Reports",
-  settings: "Workspace Settings",
+  dashboard: "Dashboard",
+  clients: "Clients",
+  reports: "Reports",
+  settings: "Settings",
+  help: "Help",
 };
 
-export default function Header({ onMenuClick, activeTab = "dashboard" }) {
+export default function Header({ onMenuClick, activeTab = "dashboard", onSearchClick }) {
   const { user, logout } = useAuth();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState(initialNotifications);
-  const popoverRef = useRef(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const notificationsRef = useRef(null);
+  const userMenuRef = useRef(null);
+
+  const isMac = typeof navigator !== "undefined" && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform || navigator.userAgent);
 
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (popoverRef.current && !popoverRef.current.contains(e.target)) {
-        setNotificationsOpen(false);
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        if (onSearchClick) onSearchClick();
       }
     };
-    if (notificationsOpen) {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onSearchClick]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (notificationsRef.current && !notificationsRef.current.contains(e.target)) {
+        setNotificationsOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    if (notificationsOpen || userMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [notificationsOpen]);
+  }, [notificationsOpen, userMenuOpen]);
 
   const markAllAsRead = () => {
     setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
   };
 
   return (
-    <header className="bg-slate-900 border-b border-slate-800 px-4 lg:px-6 py-3.5 flex items-center justify-between sticky top-0 z-20">
+    <header className="h-16 bg-neutral-950/80 backdrop-blur-sm border-b border-neutral-800 px-4 lg:px-6 flex items-center justify-between sticky top-0 z-20">
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={onMenuClick}
           aria-label="Open sidebar menu"
-          className="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+          className="lg:hidden p-2 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors"
         >
           <Menu className="w-5 h-5" />
         </button>
         <div>
-          <h1 className="text-white font-semibold text-base sm:text-lg tracking-tight">
-            {titles[activeTab] || "Dashboard Overview"}
+          <h1 className="text-white font-semibold text-base tracking-tight">
+            {titles[activeTab] || "Dashboard"}
           </h1>
-          <p className="text-slate-500 text-xs hidden sm:block">
-            Real-time client management and operational metrics
-          </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2.5 sm:gap-3">
-        {/* Notifications Popover */}
-        <div className="relative" ref={popoverRef}>
+      {/* Command Palette Trigger */}
+      <button
+        type="button"
+        onClick={onSearchClick}
+        title={`Search clients (${isMac ? "⌘K" : "Ctrl+K"})`}
+        className="hidden md:flex items-center gap-2 px-3 py-2 bg-neutral-800 hover:bg-neutral-800/80 border border-neutral-700 hover:border-neutral-600 rounded-lg w-80 text-left transition-colors cursor-pointer"
+      >
+        <Search className="w-4 h-4 text-neutral-400" />
+        <span className="text-neutral-400 text-sm flex-1">Search clients...</span>
+        <kbd className="px-1.5 py-0.5 text-xs text-neutral-400 bg-neutral-700 rounded font-mono font-medium">
+          {isMac ? "⌘K" : "Ctrl+K"}
+        </kbd>
+      </button>
+
+      <div className="flex items-center gap-2">
+        {/* Notifications */}
+        <div className="relative" ref={notificationsRef}>
           <button
             type="button"
             onClick={() => setNotificationsOpen((prev) => !prev)}
             aria-label="Notifications"
             aria-expanded={notificationsOpen}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition relative"
+            className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-lg transition-colors relative"
           >
             <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-500 rounded-full ring-2 ring-slate-900 animate-pulse" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-500 rounded-full" />
             )}
           </button>
 
           {notificationsOpen && (
-            <div className="absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-white text-sm font-semibold">Notifications</span>
-                  {unreadCount > 0 && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                      {unreadCount} new
-                    </span>
-                  )}
-                </div>
+            <div className="absolute right-0 mt-2 w-80 bg-neutral-900 border border-neutral-800 rounded-xl shadow-overlay p-4 z-50 animate-fade-in">
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-800 mb-3">
+                <span className="text-white text-sm font-medium">Notifications</span>
                 {unreadCount > 0 && (
                   <button
                     type="button"
                     onClick={markAllAsRead}
-                    className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-medium transition"
+                    className="text-xs text-primary-400 hover:text-primary-300 flex items-center gap-1 font-medium transition-colors"
                   >
                     <Check className="w-3 h-3" /> Mark all read
                   </button>
@@ -121,22 +144,22 @@ export default function Header({ onMenuClick, activeTab = "dashboard" }) {
                 {notifications.map((notif) => (
                   <div
                     key={notif.id}
-                    className={`p-2.5 rounded-xl border text-xs transition ${
+                    className={`p-2.5 rounded-lg border text-xs transition-colors ${
                       notif.unread
-                        ? "bg-indigo-950/20 border-indigo-900/40 text-slate-200"
-                        : "bg-slate-950/40 border-slate-800/80 text-slate-400"
+                        ? "bg-primary-950/20 border-primary-900/40 text-neutral-200"
+                        : "bg-neutral-950/40 border-neutral-800 text-neutral-400"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-semibold text-white flex items-center gap-1.5">
+                      <span className="font-medium text-white flex items-center gap-1.5">
                         {notif.unread && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 inline-block" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary-400" />
                         )}
                         {notif.title}
                       </span>
-                      <span className="text-[10px] text-slate-500">{notif.time}</span>
+                      <span className="text-[10px] text-neutral-500">{notif.time}</span>
                     </div>
-                    <p className="text-slate-300 text-[11px] leading-snug">{notif.message}</p>
+                    <p className="text-neutral-300 text-[11px] leading-snug">{notif.message}</p>
                   </div>
                 ))}
               </div>
@@ -144,31 +167,38 @@ export default function Header({ onMenuClick, activeTab = "dashboard" }) {
           )}
         </div>
 
-        {/* User Profile Badge */}
-        <div className="flex items-center gap-2.5 pl-3 border-l border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-            {getInitials(user?.name || "Admin User")}
-          </div>
-          <div className="text-xs hidden md:block">
-            <div className="text-white font-medium leading-tight">
-              {user?.name || "Admin"}
+        {/* User Menu */}
+        <div className="relative" ref={userMenuRef}>
+          <button
+            type="button"
+            onClick={() => setUserMenuOpen((prev) => !prev)}
+            aria-label="User menu"
+            aria-expanded={userMenuOpen}
+            className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-neutral-800 transition-colors"
+          >
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-xs font-semibold">
+              {getInitials(user?.name || "Admin User")}
             </div>
-            <div className="text-slate-500 text-[11px]">
-              {user?.role || "Administrator"}
-            </div>
-          </div>
-        </div>
+            <MoreVertical className="w-4 h-4 text-neutral-400" />
+          </button>
 
-        {/* Logout Button */}
-        <button
-          type="button"
-          onClick={logout}
-          aria-label="Log out of session"
-          title="Log out"
-          className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"
-        >
-          <LogOut className="w-5 h-5" />
-        </button>
+          {userMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-neutral-900 border border-neutral-800 rounded-lg shadow-overlay p-1 z-50 animate-fade-in">
+              <div className="px-3 py-2 border-b border-neutral-800 mb-1">
+                <div className="text-white text-sm font-medium">{user?.name || "Admin"}</div>
+                <div className="text-neutral-500 text-xs truncate">{user?.email || "admin@demo.com"}</div>
+              </div>
+              <button
+                type="button"
+                onClick={logout}
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-300 hover:text-white hover:bg-neutral-800 rounded-md transition-colors text-left"
+              >
+                <LogOut className="w-4 h-4" />
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
